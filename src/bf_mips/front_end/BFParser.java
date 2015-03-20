@@ -1,6 +1,6 @@
 package bf_mips.front_end;
 
-import bf_mips.structs.AST;
+import bf_mips.structs.AbstractSyntaxTree.AST;
 
 public class BFParser {
     public static AST parse(char[] tokens) {
