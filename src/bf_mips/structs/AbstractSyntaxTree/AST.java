@@ -6,19 +6,16 @@ public class AST {
 
     public void add_node(char token) {
         Node node = new Node(token);
-        current_node.addChild(node);
 
-        if (token == '[') {
-            current_node = node;
-        } else if (token == ']') {
-            current_node = node.getParent();
+        if (token == ']') {
+            current_node = current_node.getParent();
+        } else {
+            current_node.addChild(node);
+            if (token == '[') {
+                current_node = node;
+            }
         }
     }
-
-    public Node getCurrentNode() {
-        return current_node;
-    }
-
     public Node getRoot() {
         return root;
     }

@@ -16,7 +16,6 @@ public class BFLexer {
         char[] lexemes = code.replace(" ", "").toCharArray();
         Stack<Character> stack = new Stack<Character>();
 
-
         for (Character lexeme : lexemes) {
             if (! keywords.contains(lexeme)) {
                 throw new BFSyntaxError(lexeme);
