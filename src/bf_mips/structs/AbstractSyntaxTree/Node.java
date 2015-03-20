@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Node {
     private Node parent;
-    private List<Node> children = new ArrayList();
+    private List<Node> children;
     private final char token;
 
     public Node(char token) {
@@ -17,8 +17,15 @@ public class Node {
     }
 
     public void addChild(Node child) {
+        if (children == null) {
+            children = new ArrayList<Node>();
+        }
         children.add(child);
         child.addParent(this);
+    }
+
+    public boolean hasChildren() {
+        return children != null;
     }
 
     public Node getParent() {
