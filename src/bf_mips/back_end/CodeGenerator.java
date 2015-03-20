@@ -42,9 +42,6 @@ public class CodeGenerator {
                 case '[':
                     MIPSCode.beginLoop(loopLabel);
                     break;
-                case ']':
-                    MIPSCode.endLoop(loopLabel);
-                    break;
                 case '.':
                     MIPSCode.output();
                     break;
