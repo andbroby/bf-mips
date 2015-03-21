@@ -11,7 +11,7 @@ CodeGenerator cGen = new CodeGenerator(tree);
 System.out.println(cGen.generate());
 ````
 
-compiles to
+outputs
 
 ```
 .data
