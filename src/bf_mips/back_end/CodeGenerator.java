@@ -5,7 +5,6 @@ import bf_mips.structs.AbstractSyntaxTree.AST;
 import bf_mips.structs.AbstractSyntaxTree.Node;
 
 import java.util.List;
-import java.util.Stack;
 
 public class CodeGenerator {
     private AST syntaxTree;
@@ -16,13 +15,19 @@ public class CodeGenerator {
 
     public String generate() {
         ASMCode MIPSCode = new ASMCode();
-        Stack<String> loops = new Stack<String>();
-        return traverse(syntaxTree.getRoot(), MIPSCode, loops, 0);
+        return traverse(syntaxTree.getRoot(), MIPSCode, 0, 0);
     }
 
-    private String traverse(Node startNode, ASMCode MIPSCode, Stack<String> loops, int count) {
+    private String traverse(Node startNode, ASMCode MIPSCode, int levels, int count) {
         List<Node> children = startNode.getChildren();
+        int curr_label = count;
         for (Node child: children) {
+            if (child.hasChildren()) {
+                count++;
+                MIPSCode.beginLoop(Integer.toString(count));
+                traverse(child, MIPSCode, levels+1, count);
+            }
+
             switch (child.getToken()) {
                 case '+':
                     MIPSCode.incrementValue();
@@ -36,12 +41,6 @@ public class CodeGenerator {
                 case '<':
                     MIPSCode.decrementPt();
                     break;
-                case '[':
-                    String label = Integer.toString(count);
-                    MIPSCode.beginLoop(Integer.toString(count));
-                    count++;
-                    loops.push(label);
-                    break;
                 case '.':
                     MIPSCode.output();
                     break;
@@ -49,14 +48,10 @@ public class CodeGenerator {
                     MIPSCode.input();
                     break;
             }
-
-            if (child.hasChildren()) {
-                traverse(child, MIPSCode, loops, count);
-            }
         }
 
-        if (! loops.isEmpty()) {
-           MIPSCode.endLoop(loops.pop());
+        if (levels > 0) {
+            MIPSCode.endLoop(Integer.toString(curr_label));
         }
 
         return MIPSCode.toString();
