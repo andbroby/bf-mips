@@ -1,6 +1,6 @@
 package bf_mips.front_end;
 
-import bf_mips.BFSyntaxError;
+import bf_mips.exceptions.BFSyntaxError;
 
 import java.util.HashSet;
 import java.util.Arrays;

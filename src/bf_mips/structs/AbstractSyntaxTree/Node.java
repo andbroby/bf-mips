@@ -17,11 +17,12 @@ public class Node {
     }
 
     public void addChild(Node child) {
-        if (children == null) {
+        if (child == null) {
             children = new ArrayList<Node>();
+        } else {
+            children.add(child);
+            child.addParent(this);
         }
-        children.add(child);
-        child.addParent(this);
     }
 
     public boolean hasChildren() {

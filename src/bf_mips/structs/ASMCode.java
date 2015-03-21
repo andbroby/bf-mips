@@ -7,8 +7,6 @@ public class ASMCode {
     private String mainCode = "";
     private String entryPoints = "";
     private String sysExit = "\tli $v0, 10\n\tsyscall\n";
-    private Stack<String> loops = new Stack<String>();
-    private int loopCount = 0;
 
     private final String INPUT = new StringBuilder()
             .append("INPUT:\n")
